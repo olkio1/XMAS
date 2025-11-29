@@ -1,0 +1,27 @@
+body{
+    background-image: url('../images/94098ef80aff42f8b688f6e495256cbfab532627.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Neucha', cursive;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 1;
+}
+.layout{
+    flex: 1 0 auto;
+    display: grid;
+    grid-template-columns: 400px 1fr 400px;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    height: auto;
+}
+.left-panel, .right-panel{
+    background: rgba(0, 0, 0, 0.45);
+    padding: 20px;
+    overflow-y: auto;
+}
