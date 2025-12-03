@@ -22,7 +22,7 @@ body{
 }
 .tree-area{
     align-items: center;
-    padding: 3vh 0px 0px 20%;
+    padding: 2vh 0px 0px 25%;
     background-image: url(/images/135ff3c77d5dbc4b42928232bfdbf7844a21defe.jpg);
     background-size: cover;
 }
@@ -46,6 +46,28 @@ body{
 .button:hover{
     opacity: 0.9;
     text-decoration:underline;
+}
+.toys-grid{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8vw;
+    
+}
+.footer{
+    display: flex;
+    background-color: #192F2D;
+    flex-direction: row;
+    justify-content: space-between;
+  
+    
+}
+
+.footer a{
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 10px;
 }
 .snowblock {
     position: absolute;

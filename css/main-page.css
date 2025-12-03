@@ -52,6 +52,14 @@ line-height: 100%;
 }
 .footer{
     display: flex;
+    background-color: #192F2D;
     flex-direction: row;
     justify-content: space-between;
+  
+
+}
+.footer a{
+    text-decoration: none;
+    color: #FFFFFF;
+    padding: 10px;
 }
