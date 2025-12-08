@@ -7,6 +7,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/yellow.png"
+    
 },
 {
   name: "Красная игрушка с цветком"
@@ -16,6 +17,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/red.png"
+ 
 },
 {
   name: "Синяя игрука с цветком"
@@ -25,6 +27,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/blue.png"
+    
 },
 {
   name: "Белая игрушка с цветком"
@@ -34,6 +37,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/white.png"
+
 },
 {
   name: "Прозрачная игрушка"
@@ -43,6 +47,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/glass.png"
+   
 },
 {
   name: "Бело-красная игрушка"
@@ -52,6 +57,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/redAndwhite.png"
+    
 },
 {
   name: "Зеленая игрушка с цветком"
@@ -61,6 +67,7 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/green.png"
+ 
 },
 {
   name: "Красный виноград"
@@ -70,6 +77,7 @@ let toys = [
     , shape: "grape"
      , favourite : true 
      , image: "/images/redGrape.png"
+     
 },
 {
   name: "Белая бутылка с рисунком"
@@ -79,7 +87,8 @@ let toys = [
     , shape: "bottle"
      , favourite : true 
      , image: "/images/whiteBottle.png"
-},
+ 
+    },
 {
   name: "Белая игрушка с рисунком"
    , color: "white"
@@ -88,7 +97,21 @@ let toys = [
     , shape: "ball"
      , favourite : true 
      , image: "/images/whitish.png"
-},
+}
+];
+let garlands = [
+  {
+    type: "rainbow lights",
+    image: "/images/1.png",
+  },
+  {
+    type: "long rainbow lights",
+    image: "/images/2.png",
+  },
+  {
+    type: "spiked rainbow lights",
+    image: "/images/3.png",
+  },
 ];
 let currentTree = {
   type: "",
@@ -103,8 +126,8 @@ let currentTree = {
     this.garland = newGarland;
   },
 
-  addToy(toy) {
-    this.toys.push(toy);
+  addToy(toyObj) {
+    this.toys.push(toyObj);
   },
 
   showInfo() {
@@ -159,7 +182,7 @@ const treeArea = document.querySelector(".tree-area");
 
 treeArea.addEventListener("dragover", e => e.preventDefault());
 
-
+let placedCounter = 0;
 treeArea.addEventListener("drop", e => {
   e.preventDefault();
 
@@ -172,19 +195,26 @@ treeArea.addEventListener("drop", e => {
       const toy = toys[toyIndex];
       if(toy.count > 0){
         toy.count--
-      const xPos = x -40;
-      const yPos = y -40;
-
+      const xPos = x-40;
+      const yPos = y-40;
+        placedCounter++;
+        const placedId = placedCounter;
       const img = document.createElement("img");
       img.src = toy.image;
       img.classList.add("toy-on-tree");
 
-      img.style.left =  `${xPos}px`;
-      img.style.top =  `${yPos}px`;
-
+      img.style.left = xPos + "px";
+      img.style.top =  yPos + "px";
+        img.dataset.placedId = placedId;
       treeArea.appendChild(img);
 
-      currentTree.addToy(toy, xPos, yPos);
+      currentTree.addToy({
+        id: toy.id,
+        placedId: placedId,
+        x: xPos,
+        y: yPos,
+        image: toy.image
+      });
       
       toyGrid.children[toyIndex].children[1].textContent = toy.count;
 
@@ -193,17 +223,46 @@ treeArea.addEventListener("drop", e => {
         toy.count++;
         
         toyGrid.children[toyIndex].children[1].textContent = toy.count;
-        currentTree.toys = currentTree.toys.filter(toy => toy.id !== toy.id);
+        currentTree.toys = currentTree.toys.filter(toy => toy.placedId !== img.dataset.placedId);
       });
 
       }
-      
-
-
   }
 
+if(e.dataTransfer.getData("garland")!== ""){
+  const gIndex = e.data.dataTransfer.getData("garland");
+  const garland = garlands[gIndex];
+  currentTree.setGarland(garland.type);
+  const img = document.createElement("img");
+  img.src = garland.image;
+  
+  img.classList.add("garland-on-tree");
+  img.style.left = (x-140) + "px";
+  img.style.top = (y-20) + "px";
+  img.style.animationDelay = (Math.random() * 1.6) + "s";
+  treeArea.appendChild(img);
+  img.addEventListener("click", () => {
+    img.remove();
+    currentTree.setGarland("");
+  });
+} 
 });
 
+// const speakerBtn = document.getElementById("speaker-btn");
+// const audio = document.getElementById("xmas-audio");
+// let musicOn = false;
+// speakerBtn.addEventListener("click", () => {
 
+//   if(!musicOn) {
+//     audio.play();
+//     musicOn = true;
+  
+//   speakerBtn.classList.add("sound-on");
+//   }else {
+//     audio.pause();
+//     musicOn = false;
+  
+//   speakerBtn.classList.remove("sound-on");
+//   }
 
-
+// });

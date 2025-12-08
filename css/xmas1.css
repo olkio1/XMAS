@@ -63,11 +63,44 @@ body{
   
     
 }
+.garland{
+    width: 20vw;
+    height: 5vh;
+}
+.left-tree{
+    border: 1px solid #B3F6FF80;
+    background-color: #B3F6FF80;
+    height: 20vh;
+    width: 7vw;
+    padding: 20px;
+    border-radius: 5px;
+    
+}
 
 .footer a{
     text-decoration: none;
     color: #FFFFFF;
     padding: 10px;
+}
+.toy-on-tree{
+    height: 6vh;
+    width: 2.5vw;
+    position:absolute;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 5;
+}
+.garland-on-tree{
+    position:absolute;
+    cursor: pointer;
+    pointer-events: auto;
+    z-index: 4;
+    animation: blink 1.6s infinite ease-in-out;
+}
+@keyframes blink{
+    0% {opacity: 1;}
+    50% {opacity: 0.3;}
+    100% {opacity: 1;}
 }
 .snowblock {
     position: absolute;
