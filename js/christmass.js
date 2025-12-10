@@ -12,7 +12,7 @@ let toys = [
 {
   name: "Красная игрушка с цветком"
    , color: "red"
-    , count: 1 
+    , count: 2
     , year: 2004
     , shape: "ball"
      , favourite : true 
@@ -22,7 +22,7 @@ let toys = [
 {
   name: "Синяя игрука с цветком"
    , color: "blue"
-    , count: 6 
+    , count: 3 
     , year: 2005
     , shape: "ball"
      , favourite : true 
@@ -32,7 +32,7 @@ let toys = [
 {
   name: "Белая игрушка с цветком"
    , color: "black"
-    , count: 1 
+    , count: 2 
     , year: 2023
     , shape: "ball"
      , favourite : true 
@@ -42,7 +42,7 @@ let toys = [
 {
   name: "Прозрачная игрушка"
    , color: "transparent"
-    , count: 1 
+    , count: 2 
     , year: 2020
     , shape: "ball"
      , favourite : true 
@@ -52,7 +52,7 @@ let toys = [
 {
   name: "Бело-красная игрушка"
    , color: "red and white"
-    , count: 1 
+    , count: 2 
     , year: 2024
     , shape: "ball"
      , favourite : true 
@@ -140,6 +140,11 @@ let currentTree = {
   },
 
 };
+let treeData = {
+  type:currentTree.type,
+  garland:currentTree.garland,
+  toys:currentTree.toys
+}
 const toyGrid = document.querySelector(".toys-grid");
 toys.forEach((toy, index) => {
    const toyBox = document.createElement("div");
@@ -195,7 +200,7 @@ treeArea.addEventListener("drop", e => {
       const toy = toys[toyIndex];
       if(toy.count > 0){
         toy.count--
-      const xPos = x-40;
+      const xPos = x+370;
       const yPos = y-40;
         placedCounter++;
         const placedId = placedCounter;
@@ -226,43 +231,79 @@ treeArea.addEventListener("drop", e => {
         currentTree.toys = currentTree.toys.filter(toy => toy.placedId !== img.dataset.placedId);
       });
 
-      }
+    }
   }
 
 if(e.dataTransfer.getData("garland")!== ""){
-  const gIndex = e.data.dataTransfer.getData("garland");
+  const gIndex = e.dataTransfer.getData("garland");
   const garland = garlands[gIndex];
   currentTree.setGarland(garland.type);
-  const img = document.createElement("img");
-  img.src = garland.image;
+  const imgG = document.createElement("img");
+  imgG.src = garland.image;
   
-  img.classList.add("garland-on-tree");
-  img.style.left = (x-140) + "px";
-  img.style.top = (y-20) + "px";
-  img.style.animationDelay = (Math.random() * 1.6) + "s";
-  treeArea.appendChild(img);
-  img.addEventListener("click", () => {
-    img.remove();
+  imgG.classList.add("garland-on-tree");
+  imgG.style.left = (x+160) + "px";
+  imgG.style.top = (y-30) + "px";
+  imgG.style.animationDelay = (Math.random() * 1.6) + "s";
+  treeArea.appendChild(imgG);
+  imgG.addEventListener("click", () => {
+    imgG.remove();
     currentTree.setGarland("");
   });
 } 
 });
+const garlandGrid = document.querySelector(".garland-grid");
+garlands.forEach((garland, index) => {
+  const garlandBox = document.createElement("div");
+  const img = document.createElement("img");
+  img.src = garland.image;
+  img.classList.add("garland");
+  img.draggable = true;
+  img.dataset.index = index;
+  garlandBox.appendChild(img);
+  garlandGrid.appendChild(garlandBox);
+  img.addEventListener("dragstart", e=> {
+    e.dataTransfer.setData("garland" , index);
+  });
+});
+const speakerBtn = document.getElementById("speaker-btn");
+const audio = document.getElementById("xmas-audio");
+let musicOn = false;
+speakerBtn.addEventListener("click", () => {
 
-// const speakerBtn = document.getElementById("speaker-btn");
-// const audio = document.getElementById("xmas-audio");
-// let musicOn = false;
-// speakerBtn.addEventListener("click", () => {
-
-//   if(!musicOn) {
-//     audio.play();
-//     musicOn = true;
+  if(!musicOn) {
+    audio.play();
+    musicOn = true;
   
-//   speakerBtn.classList.add("sound-on");
-//   }else {
-//     audio.pause();
-//     musicOn = false;
+  speakerBtn.classList.add("sound-on");
+  }else {
+    audio.pause();
+    musicOn = false;
   
-//   speakerBtn.classList.remove("sound-on");
-//   }
+  speakerBtn.classList.remove("sound-on");
+  }
 
-// });
+});
+
+function getResultCurrentTreeData(){
+  const resultCurrentTreeData = {
+    type: currentTree.type,
+    garland: currentTree.garland,
+    toys: currentTree.toys.map(toy => ({
+      id: toy.id,
+      x: toy.x,
+      y: toy.y,
+      image: toy.image
+    }))
+  };
+return resultCurrentTreeData;  
+}
+const saveTreeBtn = document.getElementById("save-tree-btn");
+saveTreeBtn.addEventListener("click", () => {
+  const resultCurrentTreeData = getResultCurrentTreeData();
+  console.log(resultCurrentTreeData);
+
+  const resultCurrentTreeJSON = JSON.stringify(resultCurrentTreeData);
+  console.log(resultCurrentTreeJSON);
+});
+

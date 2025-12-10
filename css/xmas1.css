@@ -76,7 +76,12 @@ body{
     border-radius: 5px;
     
 }
-
+.speaker-btn{
+    border: 1px solid black;
+    border-radius: 10px;
+   background-color: transparent;
+   cursor: pointer;
+}
 .footer a{
     text-decoration: none;
     color: #FFFFFF;
@@ -95,11 +100,11 @@ body{
     cursor: pointer;
     pointer-events: auto;
     z-index: 4;
-    animation: blink 1.6s infinite ease-in-out;
+    animation: blink 1.7s infinite ease-in-out;
 }
 @keyframes blink{
     0% {opacity: 1;}
-    50% {opacity: 0.3;}
+    50% {opacity: 0.5;}
     100% {opacity: 1;}
 }
 .snowblock {
