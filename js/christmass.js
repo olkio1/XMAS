@@ -260,6 +260,7 @@ garlands.forEach((garland, index) => {
   img.classList.add("garland");
   img.draggable = true;
   img.dataset.index = index;
+  
   garlandBox.appendChild(img);
   garlandGrid.appendChild(garlandBox);
   img.addEventListener("dragstart", e=> {
@@ -300,10 +301,31 @@ return resultCurrentTreeData;
 }
 const saveTreeBtn = document.getElementById("save-tree-btn");
 saveTreeBtn.addEventListener("click", () => {
+  setTimeout(() => {
   const resultCurrentTreeData = getResultCurrentTreeData();
-  console.log(resultCurrentTreeData);
-
   const resultCurrentTreeJSON = JSON.stringify(resultCurrentTreeData);
-  console.log(resultCurrentTreeJSON);
+  fetch("/save-tree", {
+  method: "POST",
+ headers: {
+  "Content-Type": "application/json"
+ },
+ body: resultCurrentTreeJSON
+})
+.then(res => {
+  if(!res.ok){
+    throw new Error("Ошибка при сохранении елки");
+  }
+  return res.json();
+})
+.then(data => {
+  console.log("Ответ сервера:", data);
+  alert("Елка сохранена");
+})
+.catch(error =>{
+  console.error("Ошибка:", error);
+  alert("Не удалось сохранить елку");
 });
+}, 1000);
+});
+
 
