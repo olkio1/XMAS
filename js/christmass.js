@@ -99,6 +99,12 @@ let toys = [
      , image: "/images/whitish.png"
 }
 ];
+let trees = [
+  {image: "../images/tree1.png"},
+  {image: "../images/tree2.png"},
+  {image: "../images/tree3.png"},
+  {image: "../images/tree4.png"},
+];
 let garlands = [
   {
     type: "rainbow lights",
@@ -112,6 +118,27 @@ let garlands = [
     type: "spiked rainbow lights",
     image: "/images/3.png",
   },
+];
+let backgroundGrid = [
+{
+image: "../images/bg1.jpg"
+},
+{
+  image: "../images/bg2.png"
+  },
+  {
+    image: "../images/bg3.png"
+    },
+    {
+      image: "../images/bg4.png"
+      },
+      {
+        image: "../images/bg5.png"
+        },
+        {
+          image: "../images/bg6.png"
+          },
+
 ];
 let currentTree = {
   type: "",
@@ -184,9 +211,22 @@ toys.forEach((toy, index) => {
 });
 });
 const treeArea = document.querySelector(".tree-area");
-
 treeArea.addEventListener("dragover", e => e.preventDefault());
+const chooseTree = document.querySelector(".choose-tree");
+const mainTree = document.querySelector(".main-tree");
+trees.forEach((tree, index) => {
+  const treeBox = document.createElement("div");
+  const img = document.createElement("img");
+  img.src = tree.image;
+  img.classList.add("left-tree");
+  img.dataset.index = index;
 
+  treeBox.appendChild(img);
+  chooseTree.appendChild(treeBox);
+  img.addEventListener("click", () => {
+    mainTree.src = tree.image;
+  })
+})
 let placedCounter = 0;
 treeArea.addEventListener("drop", e => {
   e.preventDefault();
@@ -299,6 +339,22 @@ function getResultCurrentTreeData(){
   };
 return resultCurrentTreeData;  
 }
+
+const backgroundTree= document.querySelector(".backgrounds");
+backgroundGrid.forEach((back,index) => {
+  const backgroundBox = document.createElement("div");
+  const img = document.createElement("img");
+  img.src = back.image;
+  img.classList.add("background-tree");
+  img.dataset.index = index;
+  
+  backgroundBox.appendChild(img);
+  backgroundTree.appendChild(backgroundBox);
+  img.addEventListener("click", () => {
+    treeArea.style.backgroundImage = `url(${back.image})`;
+  });
+});
+
 const saveTreeBtn = document.getElementById("save-tree-btn");
 saveTreeBtn.addEventListener("click", () => {
   setTimeout(() => {

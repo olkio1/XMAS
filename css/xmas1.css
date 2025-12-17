@@ -23,7 +23,7 @@ body{
 .tree-area{
     align-items: center;
     padding: 2vh 0px 0px 25%;
-    background-image: url(/images/135ff3c77d5dbc4b42928232bfdbf7844a21defe.jpg);
+    background-image: url(/images/bg1.jpg);
     background-size: cover;
 }
 .left-panel, .right-panel{
@@ -63,18 +63,41 @@ body{
   
     
 }
+.backgrounds{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2vw;
+    
+}
+.main-tree{
+    height: 100vh;
+    width: 35vw;
+}
+.background-tree{
+    height: 80px;
+    width: 80px;
+    cursor: pointer;
+}
 .garland{
     width: 20vw;
-    height: 5vh;
+    height: 3.7vh;
+}
+.choose-tree{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
 }
 .left-tree{
     border: 1px solid #B3F6FF80;
     background-color: #B3F6FF80;
-    height: 20vh;
+    height: 12vh;
     width: 7vw;
-    padding: 20px;
+    padding: 15px;
     border-radius: 5px;
-    
+    cursor: pointer;
 }
 .speaker-btn{
     border: 1px solid black;
